@@ -22,10 +22,10 @@ end
 function highscore.draw()
     love.graphics.pushColor()
 
-    love.graphics.setNewFont(42)
+    love.graphics.setFont(getFont(42))
     love.graphics.printCenter("Shot! Shot!", 320, 40)
 
-    love.graphics.setNewFont(28)
+    love.graphics.setFont(getFont(28))
     love.graphics.setColor({1, 1, 1, 1})
 
     local top = 240
@@ -46,7 +46,7 @@ function highscore.draw()
     love.graphics.rectangle("fill", 35, top + 80 - 3, 320, 2)
     love.graphics.printRight(string.format("total: %4d‰", math.max(0, highscore.score)), right, top + 80)
 
-    love.graphics.setNewFont(16)
+    love.graphics.setFont(getFont(16))
     top = 180
     right = 600
     for i, entry in ipairs(highscore.highscore) do
@@ -60,7 +60,7 @@ function highscore.draw()
         love.graphics.printRight(string.format("%s %4d‰", name, entry[2]), right, top + i * 20)
     end
 
-    love.graphics.setNewFont(14)
+    love.graphics.setFont(getFont(14))
     love.graphics.printRight("Edit your username, submit with enter.", 620, 450)
 
     love.graphics.popColor()

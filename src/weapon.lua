@@ -61,7 +61,7 @@ function weapon.new(name_, rounds_, rate_)
         local addx = (cx - 180) / 180 * 10
         local offx = self.x - 157 + addx
         local offy = self.y - 188
-        if math.abs(cx - self.x) < 60 then
+        if math.abs(cx - self.x) < 62 then
             offy = offy + (cx - self.x + 60) / 7
             offx = offx + (cx - self.x + 60) / 5
         end
@@ -101,7 +101,9 @@ function weapon.new(name_, rounds_, rate_)
             self.lastshot = 1
             self.timesinceshot = 0
             self.rounds = self.rounds - 1
+            return true
         end
+        return false
     end
 
     function w:reload(x, y)
@@ -111,9 +113,10 @@ function weapon.new(name_, rounds_, rate_)
             if not self.roundfilled[i] and math.dist(relx, rely, self.roundpos[i][1], self.roundpos[i][2]) < 7 then
                 self.roundfilled[i] = true
                 self.rounds = self.rounds + 1
-                return
+                return true
             end
         end
+        return false
     end
 
     return w

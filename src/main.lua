@@ -3,6 +3,8 @@
 --
 
 require("util")
+require("font")
+audio = require("audio")
 cheats = require("cheats")
 menu = require("menu")
 highscore = require("highscore")
@@ -25,6 +27,8 @@ function startGame()
     vars.state = 2
     vars.weapon.rounds = vars.weapon.roundsfull
     vars.weapon.lastshot = 0
+    vars.beverage.progress = 0
+    vars.beverage.lastshot = 0
     love.mouse.setPosition(320, 240)
     dude.drinks = 0
     dude.drinkprogress = 0
@@ -37,6 +41,7 @@ function love.load()
 
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
+    audio.load()
     typing.load()
     crosshair.load()
     dude.load()
@@ -66,6 +71,7 @@ function update_2(dt)
     typing.update(dt)
     crosshair.update(dt)
     vars.weapon:update(dt)
+    vars.beverage:update(dt)
     dude.update(dt)
 end
 
@@ -80,6 +86,7 @@ end
 function love.update(dt)
     local update = { update_1, update_2, update_3, update_4 }
     update[vars.state](dt)
+    audio.update(dt)
 end
 
 function draw_1()
@@ -130,6 +137,7 @@ end
 
 function keypressed_2(key)
     typing.keypressed(key)
+    beverage.progress = typing.progress
     cheats.keypressed(key)
     if key == "space" and vars.weapon.rounds ~= vars.weapon.roundsfull then
         vars.state = 3
@@ -165,19 +173,32 @@ function menu.done()
 end
 
 function typing.done()
+    beverage.lastshot = 1
+    typing.timeout = 4
     vars.promille = vars.beverage:newPromille(vars.promille)
     crosshair.drunk = math.pow(vars.promille, 0.3)
     weapon.drunk = math.pow(vars.promille, 0.3)
     typing.length = math.ceil(math.pow(vars.promille, 0.3)*42) + 1
+    audio.delay(audio.srcslurp, 1)
+    audio.delay(audio.srcpouring, 2.5)
     print(string.format("promille %f, drunk %f, length %d", vars.promille, crosshair.drunk, typing.length))
 end
 
 function crosshair.shoot()
     if vars.state == 2 then
-        vars.weapon:shot()
-        dude.shoot(crosshair.x, crosshair.y)
+        local success = vars.weapon:shot()
+        if success then
+            local success = dude.shoot(crosshair.x, crosshair.y)
+            audio.playrandom(audio.srcgunshot)
+            if not success then
+                audio.delay(audio.srcwoosh, 0.1)
+            end
+        end
     elseif vars.state == 3 then
-        vars.weapon:reload(crosshair.x, crosshair.y)
+        local success = vars.weapon:reload(crosshair.x, crosshair.y)
+        if success then
+            audio.playrandom(audio.srcreload)
+        end
         if vars.weapon.rounds == vars.weapon.roundsfull then
             vars.state = 2
         end
@@ -194,7 +215,7 @@ end
 function dude.dead()
     vars.state = 4
     highscore.score = math.floor(vars.promille * 1000)
-    highscore.deduction = math.max(1, math.floor(highscore.score * 0.2))
+    highscore.deduction = math.max(1, math.floor(highscore.score * 0.4))
     highscore.score = highscore.score - highscore.deduction
     highscore.retrieve()
 end

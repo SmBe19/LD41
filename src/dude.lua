@@ -32,8 +32,10 @@ function dude.shoot(x, y)
         local r, g, b, a = dude.imgdata:getPixel(x, y)
         if a > 0.1 then
             dude.dead()
+            return true
         end
     end
+    return false
 end
 
 function dude.draw()

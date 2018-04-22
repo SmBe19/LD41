@@ -66,9 +66,13 @@ function typing.newstring()
 end
 
 function typing.update(dt)
+    typing.timeout = math.max(0, typing.timeout - dt)
 end
 
 function typing.keypressed(char)
+    if typing.timeout > 0 then
+        return
+    end
     if char == typing.text:get(typing.currentpos) then
         typing.currentpos = typing.currentpos + 1
         if typing.currentpos > string.len(typing.text) then
@@ -79,13 +83,14 @@ function typing.keypressed(char)
         typing.fail()
         typing.currentpos = 1
     end
+    typing.progress = (typing.currentpos - 1) / (#typing.text - 1)
 end
 
 function typing.draw()
     love.graphics.pushColor()
     love.graphics.push()
     love.graphics.scale(0.5, 0.5)
-    love.graphics.setNewFont(28)
+    love.graphics.setFont(getFont(28))
     local font = love.graphics.getFont()
 
     local firstpart = typing.text:sub(1, typing.currentpos-1)
@@ -108,5 +113,7 @@ end
 typing.length = 1
 typing.text = typing.newstring()
 typing.currentpos = 1
+typing.progress = 0
+typing.timeout = 0
 
 return typing
