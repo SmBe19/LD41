@@ -2,13 +2,21 @@
 -- Handle aiming
 --
 
-local crosshair = {}
+local crosshair = {
+    x = 160,
+    y = 120,
+    vx = 0,
+    vy = 0,
+    ax = 0,
+    ay = 0,
+    drunk = 0, -- in [0, 1)
+}
 
 function crosshair.load()
     crosshair.img = love.graphics.newImage("assets/crosshair.png")
 end
 
-function crosshair.update(dt)
+function crosshair.updatePosition(dt)
     local mx = love.mouse.getX() / 2
     local my = love.mouse.getY() / 2
 
@@ -32,18 +40,25 @@ function crosshair.update(dt)
     crosshair.y = math.clamp(crosshair.y, 0, 240)
 end
 
-function crosshair.draw()
-    local x = math.floor(crosshair.x - 7)
-    local y = math.floor(crosshair.y - 7)
-    love.graphics.draw(crosshair.img, x, y)
+local wasDown = { false, false, false }
+
+function crosshair.update(dt)
+    crosshair.updatePosition(dt)
+
+    if love.mouse.isDown(1) and not wasDown[1] then
+        crosshair.shoot()
+    end
+
+    for i = 1,3 do
+        wasDown[i] = love.mouse.isDown(i)
+    end
 end
 
-crosshair.x = 160
-crosshair.y = 120
-crosshair.vx = 0
-crosshair.vy = 0
-crosshair.ax = 0
-crosshair.ay = 0
-crosshair.drunk = 0 -- in [0, 1)
+function crosshair.draw()
+    love.graphics.drawCrisp(crosshair.img, crosshair.x - 7, crosshair.y - 7)
+end
+
+function crosshair.shoot()
+end
 
 return crosshair
