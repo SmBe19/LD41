@@ -6,6 +6,8 @@ imgs = {}
 consts = {}
 
 function love.load()
+    love.graphics.setDefaultFilter("nearest", "nearest")
+
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
     consts.width = love.graphics.getWidth()
@@ -18,5 +20,6 @@ function love.update()
 end
 
 function love.draw()
-    love.graphics.draw(imgs.bar, 0, 0, 0, consts.sx, consts.sy)
+    love.graphics.scale(consts.sx, consts.sy)
+    love.graphics.draw(imgs.bar, 0, 0)
 end
