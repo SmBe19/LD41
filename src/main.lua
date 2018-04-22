@@ -38,6 +38,7 @@ function love.load()
     math.randomseed(os.time())
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.mouse.setVisible(false)
+    love.mouse.setGrabbed(true)
 
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
@@ -58,7 +59,7 @@ function love.load()
         xp = 0,
         promille = 0,
         beverage = beverage.new("Wodka", 10, 0.4),
-        weapon = weapon.new("Revolver", 6, 2)
+        weapon = weapon.new("Revolver", 6, 1)
     }
 end
 
@@ -77,7 +78,10 @@ end
 
 function update_3(dt)
     cheats.update(dt)
+    typing.update(dt)
     crosshair.update(dt)
+    vars.beverage:update(dt)
+    dude.update(dt)
 end
 
 function update_4(dt)
@@ -176,8 +180,8 @@ function typing.done()
     beverage.lastshot = 1
     typing.timeout = 4
     vars.promille = vars.beverage:newPromille(vars.promille)
-    crosshair.drunk = math.pow(vars.promille, 0.3)
-    weapon.drunk = math.pow(vars.promille, 0.3)
+    crosshair.drunk = math.log(99*vars.promille+1, 100)
+    weapon.drunk = math.log(99*vars.promille+1, 100)
     typing.length = math.ceil(math.pow(vars.promille, 0.3)*42) + 1
     audio.delay(audio.srcslurp, 1)
     audio.delay(audio.srcpouring, 2.5)
@@ -203,6 +207,16 @@ function crosshair.shoot()
             vars.state = 2
         end
     end
+end
+
+function dude.hitglass()
+    audio.delay(audio.srcklirr, 0.1)
+    audio.delay(audio.srcpouring, 10)
+end
+
+function dude.drink()
+    audio.playrandom(audio.srcslurp)
+    audio.delay(audio.srcpouring, 1.5)
 end
 
 function dude.toodrunk()

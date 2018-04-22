@@ -98,13 +98,16 @@ function typing.draw()
 
     love.graphics.setColor({0.9, 0.9, 0.9, 0.5})
     love.graphics.rectangle("fill", 0, 440, 640, 40)
-    love.graphics.setColor({0.2, 0, 0, 1})
-    love.graphics.print(firstpart, 10, 444)
-    love.graphics.setColor(0.3, 0.3, 0.3, 1)
-    love.graphics.print(typing.text:sub(typing.currentpos, typing.text:len()), 10 + firstlength, 444)
 
-    love.graphics.setColor({0.2, 0, 0, 1})
-    love.graphics.rectangle("fill", 10 + firstlength, 474, font:getWidth(typing.text:get(typing.currentpos)), 2)
+    if typing.timeout <= 0 then
+        love.graphics.setColor({0.2, 0, 0, 1})
+        love.graphics.print(firstpart, 10, 444)
+        love.graphics.setColor(0.3, 0.3, 0.3, 1)
+        love.graphics.print(typing.text:sub(typing.currentpos, typing.text:len()), 10 + firstlength, 444)
+
+        love.graphics.setColor({0.2, 0, 0, 1})
+        love.graphics.rectangle("fill", 10 + firstlength, 474, font:getWidth(typing.text:get(typing.currentpos)), 2)
+    end
 
     love.graphics.pop()
     love.graphics.popColor()

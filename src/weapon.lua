@@ -78,13 +78,21 @@ function weapon.new(name_, rounds_, rate_)
             img = middle and 7 or 6
         end
         love.graphics.drawCrisp(self.img[img], offx, offy)
+
+        if rounds == 0 then
+            love.graphics.push()
+            love.graphics.scale(0.5, 0.5)
+            love.graphics.setFont(getFont(14))
+            love.graphics.print("[SPACE]", (offx + 157 - 12) * 2, (offy + 188 - 12) * 2)
+            love.graphics.pop()
+        end
     end
 
     function w:drawReload()
-        love.graphics.drawCrisp(self.chamberimg, 100, 60)
+        love.graphics.drawCrisp(self.chamberimg, 180, 60)
         for i = 1, self.roundsfull do
             if self.roundfilled[i] then
-                love.graphics.draw(self.roundimg, self.roundpos[i][1] + 160 - 16, self.roundpos[i][2] + 120 - 16)
+                love.graphics.draw(self.roundimg, self.roundpos[i][1] + 240 - 16, self.roundpos[i][2] + 120 - 16)
             end
         end
     end
@@ -107,7 +115,7 @@ function weapon.new(name_, rounds_, rate_)
     end
 
     function w:reload(x, y)
-        local relx = x - 160
+        local relx = x - 240
         local rely = y - 120
         for i = 1,self.roundsfull do
             if not self.roundfilled[i] and math.dist(relx, rely, self.roundpos[i][1], self.roundpos[i][2]) < 7 then
