@@ -93,8 +93,8 @@ function draw_2()
     dude.draw()
     love.graphics.draw(imgs.bar, 0, 0)
     vars.beverage:draw()
-    vars.weapon:draw(crosshair.x)
     typing.draw()
+    vars.weapon:draw(crosshair.x)
     crosshair.draw(vars.state)
 
     if vars.weapon.lastshot > 0.5 then

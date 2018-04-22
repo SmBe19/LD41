@@ -22,7 +22,12 @@ function menu.draw(xp)
 
     love.graphics.setNewFont(28)
     love.graphics.setColor({1, 0, 0, 1})
-    love.graphics.printCenter("[ENTER] to start game!", 320, 180)
+    love.graphics.printCenter("[ENTER] to start game!", 320, 170)
+
+    love.graphics.setNewFont(14)
+    love.graphics.setColor({1, 1, 1, 1})
+    love.graphics.printCenter("Benjamin Schmid", 320, 390)
+    love.graphics.printCenter("Matteo Signer", 320, 415)
 
     love.graphics.pop()
     love.graphics.popColor()
