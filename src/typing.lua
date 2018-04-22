@@ -88,12 +88,18 @@ function typing.draw()
     love.graphics.setNewFont(28)
     local font = love.graphics.getFont()
 
+    local firstpart = typing.text:sub(1, typing.currentpos-1)
+    local firstlength = font:getWidth(firstpart)
+
     love.graphics.setColor({0.9, 0.9, 0.9, 0.5})
     love.graphics.rectangle("fill", 0, 440, 640, 40)
     love.graphics.setColor({0.2, 0, 0, 1})
-    love.graphics.print(typing.text:sub(1, typing.currentpos-1), 10, 444)
+    love.graphics.print(firstpart, 10, 444)
     love.graphics.setColor(0.3, 0.3, 0.3, 1)
-    love.graphics.print(typing.text:sub(typing.currentpos, typing.text:len()), 10 + font:getWidth(typing.text:sub(1, typing.currentpos-1)), 444)
+    love.graphics.print(typing.text:sub(typing.currentpos, typing.text:len()), 10 + firstlength, 444)
+
+    love.graphics.setColor({0.2, 0, 0, 1})
+    love.graphics.rectangle("fill", 10 + firstlength, 474, font:getWidth(typing.text:get(typing.currentpos)), 2)
 
     love.graphics.pop()
     love.graphics.popColor()

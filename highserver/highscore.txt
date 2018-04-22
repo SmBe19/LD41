@@ -1,0 +1,1 @@
+[{"name":"Jack","score":10},{"name":"Igelmann","score":9},{"name":"Hans","score":8},{"name":"Gusti","score":7},{"name":"Fritz","score":6},{"name":"Eve","score":5},{"name":"Dan","score":4},{"name":"Charlie","score":3},{"name":"Bob","score":2},{"name":"Alice","score":1}]

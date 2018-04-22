@@ -5,6 +5,8 @@
 local crosshair = {
     x = 160,
     y = 120,
+    dx = 160,
+    dy = 120,
     vx = 0,
     vy = 0,
     ax = 0,
@@ -13,15 +15,16 @@ local crosshair = {
 }
 
 function crosshair.load()
-    crosshair.img = love.graphics.newImage("assets/crosshair.png")
+    crosshair.aimimg = love.graphics.newImage("assets/crosshair.png")
+    crosshair.reloadimg = love.graphics.newImage("assets/round.png")
 end
 
 function crosshair.updatePosition(dt)
     local mx = love.mouse.getX() / 2
     local my = love.mouse.getY() / 2
 
-    local dirx = mx - crosshair.x
-    local diry = my - crosshair.y
+    local dirx = mx - crosshair.dx
+    local diry = my - crosshair.dy
     local dirl = math.sqrt(dirx * dirx + diry * diry)
 
     local alpha = 0.01 + (math.exp(crosshair.drunk * 10) - 1)
@@ -33,11 +36,16 @@ function crosshair.updatePosition(dt)
 
     crosshair.vx = crosshair.vx + dt * crosshair.ax
     crosshair.vy = crosshair.vy + dt * crosshair.ay
-    crosshair.x = crosshair.x + dt * crosshair.vx
-    crosshair.y = crosshair.y + dt * crosshair.vy
+    crosshair.dx = crosshair.dx + dt * crosshair.vx
+    crosshair.dy = crosshair.dy + dt * crosshair.vy
 
-    crosshair.x = math.clamp(crosshair.x, 0, 320)
-    crosshair.y = math.clamp(crosshair.y, 0, 240)
+    crosshair.dx = math.clamp(crosshair.dx, 0, 320)
+    crosshair.dy = math.clamp(crosshair.dy, 0, 240)
+
+    -- crosshair.x = (1 - crosshair.drunk) * mx + crosshair.drunk * crosshair.dx
+    -- crosshair.y = (1 - crosshair.drunk) * my + crosshair.drunk * crosshair.dy
+    crosshair.x = crosshair.dx
+    crosshair.y = crosshair.dy
 end
 
 local wasDown = { false, false, false }
@@ -54,8 +62,10 @@ function crosshair.update(dt)
     end
 end
 
-function crosshair.draw()
-    love.graphics.drawCrisp(crosshair.img, crosshair.x - 7, crosshair.y - 7)
+function crosshair.draw(state)
+    local imgs = { nil, crosshair.aimimg, crosshair.reloadimg, nil }
+    local img = imgs[state or 2]
+    love.graphics.drawCrisp(img, crosshair.x - img:getWidth()/2, crosshair.y - img:getHeight()/2)
 end
 
 function crosshair.shoot()

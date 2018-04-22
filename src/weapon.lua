@@ -27,6 +27,16 @@ function weapon.new(name_, rounds_, rate_)
     for i = 1,7 do
         w.img[i] = love.graphics.newImage(string.format("assets/gun%d.png", i))
     end
+    w.chamberimg = love.graphics.newImage("assets/chamber.png")
+    w.roundimg = love.graphics.newImage("assets/round.png")
+    w.roundpos = {
+        {0, -40},
+        {-35, -20},
+        {-35, 20},
+        {0, 40},
+        {35, 20},
+        {35, -20},
+    }
 
     function w:update(dt)
         if self.lastshot > 0.9 then
@@ -70,11 +80,39 @@ function weapon.new(name_, rounds_, rate_)
         love.graphics.drawCrisp(self.img[img], offx, offy)
     end
 
+    function w:drawReload()
+        love.graphics.drawCrisp(self.chamberimg, 100, 60)
+        for i = 1, self.roundsfull do
+            if self.roundfilled[i] then
+                love.graphics.draw(self.roundimg, self.roundpos[i][1] + 160 - 16, self.roundpos[i][2] + 120 - 16)
+            end
+        end
+    end
+
+    function w:prepareReload()
+        w.roundfilled = {}
+        for i = 1, self.roundsfull do
+            w.roundfilled[i] = i <= self.rounds
+        end
+    end
+
     function w:shot()
         if self.timesinceshot > self.rate and self.rounds > 0 then
             self.lastshot = 1
             self.timesinceshot = 0
             self.rounds = self.rounds - 1
+        end
+    end
+
+    function w:reload(x, y)
+        local relx = x - 160
+        local rely = y - 120
+        for i = 1,self.roundsfull do
+            if not self.roundfilled[i] and math.dist(relx, rely, self.roundpos[i][1], self.roundpos[i][2]) < 7 then
+                self.roundfilled[i] = true
+                self.rounds = self.rounds + 1
+                return
+            end
         end
     end
 
