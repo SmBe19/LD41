@@ -135,11 +135,11 @@ function highscore.retrieve()
         end
     else
         for idx, name in ipairs(highscore.defaultusernames) do
-            if not found and score > 462 - idx * 42 then
+            if not found and score > 95 - idx * 9 then
                 highscore.highscore[#highscore.highscore+1] = {"#You", score}
                 found = true
             end
-            highscore.highscore[#highscore.highscore+1] = {name, 462 - idx * 42}
+            highscore.highscore[#highscore.highscore+1] = {name, 95 - idx * 9}
         end
     end
     if not found then
