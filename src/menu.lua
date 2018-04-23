@@ -3,7 +3,8 @@
 --
 
 local menu = {
-    active = 1
+    active = 1,
+    coverimg = false,
 }
 
 function menu.done()
@@ -27,18 +28,27 @@ function menu.draw(xp)
     love.graphics.setFont(getFont(42))
     love.graphics.printCenter("Shot!           Shot!", 220, 40)
 
-    love.graphics.setFont(getFont(28))
-    love.graphics.setColor({0.7, 0.12, 0.16, 1})
-    love.graphics.printCenter("[space] to START!", 320, 200)
+    if not menu.coverimg then
+        love.graphics.setFont(getFont(28))
+        love.graphics.setColor({0.7, 0.12, 0.16, 1})
+        love.graphics.printCenter("[space] to START!", 320, 200)
 
-    love.graphics.setFont(getFont(14))
-    love.graphics.setColor({1, 1, 1, 1})
-    love.graphics.printCenter("Benjamin Schmid", 320, 390)
-    love.graphics.printCenter("Matteo Signer", 320, 415)
+        love.graphics.setFont(getFont(14))
+        love.graphics.setColor({1, 1, 1, 1})
+        love.graphics.printCenter("Benjamin Schmid", 320, 390)
+        love.graphics.printCenter("Matteo Signer", 320, 415)
 
-    love.graphics.setFont(getFont(10))
-    love.graphics.printCenter("Music by Kevin MacLeod (incompetech.com)", 320, 450)
-    love.graphics.printCenter("[tab] to mute music", 320, 464)
+        love.graphics.setFont(getFont(10))
+        love.graphics.printCenter("Music by Kevin MacLeod (incompetech.com)", 320, 450)
+        love.graphics.printCenter("[tab] to mute music", 320, 464)
+    end
+
+    if menu.coverimg then
+        love.graphics.setFont(getFont(28))
+        love.graphics.setColor({1, 1, 1, 1})
+        love.graphics.printCenter("Benjamin Schmid", 220, 180)
+        love.graphics.printCenter("Matteo Signer", 220, 220)
+    end
 
     love.graphics.pop()
     love.graphics.popColor()
