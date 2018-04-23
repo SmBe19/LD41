@@ -42,8 +42,8 @@ function startBackground()
     if audio.background and audio.background:isPlaying() then
         audio.background:stop()
     end
-    audio.background = audio.srcbackground[math.random(#audio.srcbackground)]
-    audio.background:play()
+    audio.background = math.choice(audio.srcbackground)
+    -- audio.background:play() -- TODO enable
 end
 
 function audio.update(dt)

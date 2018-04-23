@@ -26,6 +26,22 @@ function string:contains(el)
     return false
 end
 
+function string.toList(s)
+    local res = {}
+    for i = 1,#s do
+        res[i] = s:get(i)
+    end
+    return res
+end
+
+function string.random(length, chars)
+    if length > 0 and chars then
+        return string.random(length - 1, chars) .. math.choice(chars)
+    else
+        return ""
+    end
+end
+
 function table.contains(t, el)
     for i = 1,#t do
         if t[i] == el then
@@ -39,13 +55,17 @@ function math.clamp(x, a, b)
     return math.max(a, math.min(b, x))
 end
 
-function math.sample(table)
+function math.choice(t)
+    return t[math.random(#t)]
+end
+
+function math.sample(t)
     local sum = 0
-    for k, v in pairs(table) do
+    for k, v in pairs(t) do
         sum = sum + v
     end
     local value = math.random() * sum
-    for k, v in pairs(table) do
+    for k, v in pairs(t) do
         if value <= v then
             return k
         end

@@ -38,12 +38,12 @@ local consonants = {
     z = 0.074,
 }
 
-function string.random(length)
+function string.randomWord(length)
     if length > 0 then
         if length % 2 == 0 then
-            return string.random(length - 1) .. math.sample(vowels)
+            return string.randomWord(length - 1) .. math.sample(vowels)
         else
-            return string.random(length - 1) .. math.sample(consonants)
+            return string.randomWord(length - 1) .. math.sample(consonants)
         end
     else
         return ""
@@ -61,7 +61,7 @@ function typing.load()
 end
 
 function typing.newstring()
-    typing.text = string.random(typing.length)
+    typing.text = string.randomWord(typing.length)
     typing.currentpos = 1
 end
 

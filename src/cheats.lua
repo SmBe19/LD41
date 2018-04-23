@@ -3,18 +3,20 @@
 --
 
 local cheats = {
-    active = true
+    active = true -- TODO disable
 }
 
 local crosshair
 local typing
+local weapon
 
 local drawCursor = false
 local printCursor = false
 
-function cheats.load(crosshair_, typing_)
+function cheats.load(crosshair_, typing_, weapon_)
     crosshair = crosshair_
     typing = typing_
+    weapon = weapon_
 end
 
 function cheats.draw()
@@ -50,6 +52,8 @@ function cheats.keypressed(char)
     elseif char == "3" then
         typing.done()
         typing.newstring()
+    elseif char == "4" then
+        weapon.rounds = weapon.roundsfull
     elseif char == "9" then
         printCursor = true
         print("cursor position " .. tostring(printCursor))

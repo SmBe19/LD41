@@ -13,6 +13,7 @@ crosshair = require("crosshair")
 beverage = require("beverage")
 weapon = require("weapon")
 dude = require("dude")
+progress = require("progress")
 
 imgs = {}
 consts = {}
@@ -32,13 +33,18 @@ function startGame()
     love.mouse.setPosition(320, 240)
     dude.drinks = 0
     dude.drinkprogress = 0
+    dude.reversing = 0
+    dude.angry = 0
+    dude.promille = 0
+
+    love.mouse.setGrabbed(true)
 end
 
 function love.load()
     math.randomseed(os.time())
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.mouse.setVisible(false)
-    love.mouse.setGrabbed(true)
+    love.window.setIcon(love.image.newImageData("assets/logo.png"))
 
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
@@ -46,7 +52,6 @@ function love.load()
     typing.load()
     crosshair.load()
     dude.load()
-    cheats.load(crosshair, typing)
 
     consts = {
         sx = 2,
@@ -58,9 +63,12 @@ function love.load()
         state = 1,
         xp = 0,
         promille = 0,
-        beverage = beverage.new("Wodka", 10, 0.4),
+        beverage = beverage.new("Wodka", 10, 0.42),
         weapon = weapon.new("Revolver", 6, 1)
     }
+
+    progress.load(dude, vars)
+    cheats.load(crosshair, typing, vars.weapon)
 end
 
 function update_1(dt)
@@ -107,6 +115,7 @@ function draw_2()
     typing.draw()
     vars.weapon:draw(crosshair.x)
     crosshair.draw(vars.state)
+    progress.draw()
 
     if vars.weapon.lastshot > 0.5 then
         love.graphics.pushColor()
@@ -123,6 +132,7 @@ function draw_3()
     love.graphics.draw(imgs.bar, 0, 0)
     vars.weapon:drawReload()
     crosshair.draw(vars.state)
+    progress.draw()
     cheats.draw()
 end
 
@@ -217,6 +227,7 @@ end
 function dude.drink()
     audio.playrandom(audio.srcslurp)
     audio.delay(audio.srcpouring, 1.5)
+    dude.promille = vars.beverage:newPromille(dude.promille)
 end
 
 function dude.toodrunk()
@@ -224,6 +235,7 @@ function dude.toodrunk()
     highscore.score = math.floor(vars.promille * 1000)
     highscore.deduction = 0
     highscore.retrieve()
+    love.mouse.setGrabbed(false)
 end
 
 function dude.dead()
@@ -232,6 +244,7 @@ function dude.dead()
     highscore.deduction = math.max(1, math.floor(highscore.score * 0.4))
     highscore.score = highscore.score - highscore.deduction
     highscore.retrieve()
+    love.mouse.setGrabbed(false)
 end
 
 function highscore.done()

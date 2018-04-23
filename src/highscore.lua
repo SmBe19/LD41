@@ -33,18 +33,22 @@ function highscore.draw()
 
     love.graphics.printCenter("Score for " .. highscore.username, 320, 120)
 
-    love.graphics.printRight(string.format("drunkenness: %4d‰", highscore.score + highscore.deduction), right, top)
+    love.graphics.printRight("drunkenness:", right - 100, top)
+    love.graphics.printRight(tostring(highscore.score + highscore.deduction) .. "‰", right, top)
 
     if highscore.deduction > 0 then
-        love.graphics.setColor({1, 0, 0, 1})
-        love.graphics.printRight(string.format("kill: %4d‰", -highscore.deduction), right, top + 40)
+        love.graphics.setColor({0.7, 0.12, 0.16, 1})
+        love.graphics.printRight("kill:", right - 100, top + 40)
+        love.graphics.printRight(tostring(-highscore.deduction) .. "‰", right, top + 40)
     else
-        love.graphics.printRight(string.format("no kill:    0‰", highscore.deduction), right, top + 40)
+        love.graphics.printRight("no kill:", right - 100, top + 40)
+        love.graphics.printRight("0‰", right, top + 40)
     end
 
     love.graphics.setColor({1, 1, 1, 1})
     love.graphics.rectangle("fill", 35, top + 80 - 3, 320, 2)
-    love.graphics.printRight(string.format("total: %4d‰", math.max(0, highscore.score)), right, top + 80)
+    love.graphics.printRight("total:", right - 100, top + 80)
+    love.graphics.printRight(tostring(math.max(0, highscore.score)) .. "‰", right, top + 80)
 
     love.graphics.setFont(getFont(16))
     top = 180
@@ -52,7 +56,7 @@ function highscore.draw()
     for i, entry in ipairs(highscore.highscore) do
         local name = entry[1]
         if name == "#You" then
-            love.graphics.setColor({1, 0, 0, 1})
+            love.graphics.setColor({0.7, 0.12, 0.16, 1})
             name = highscore.username
         else
             love.graphics.setColor({1, 1, 1, 1})

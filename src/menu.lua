@@ -21,7 +21,7 @@ function menu.draw(xp)
     love.graphics.printCenter("Shot! Shot!", 320, 40)
 
     love.graphics.setFont(getFont(28))
-    love.graphics.setColor({1, 0, 0, 1})
+    love.graphics.setColor({0.7, 0.12, 0.16, 1})
     love.graphics.printCenter("[ENTER] to start game!", 320, 170)
 
     love.graphics.setFont(getFont(14))
