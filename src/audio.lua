@@ -47,7 +47,7 @@ function startBackground()
         audio.background:stop()
     end
     audio.background = math.choice(audio.srcbackground)
-    -- audio.background:play() -- TODO enable
+    audio.background:play() -- TODO enable
 end
 
 function audio.update(dt)

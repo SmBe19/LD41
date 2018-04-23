@@ -130,8 +130,8 @@ end
 
 function draw_3()
     love.graphics.scale(consts.sx, consts.sy)
-    dude.draw()
     love.graphics.draw(imgs.bg, 0, 0)
+    dude.draw()
     love.graphics.draw(imgs.bar, 0, 0)
     vars.weapon:drawReload()
     crosshair.draw(vars.state)

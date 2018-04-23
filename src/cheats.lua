@@ -3,7 +3,7 @@
 --
 
 local cheats = {
-    active = true -- TODO disable
+    active = false -- TODO disable
 }
 
 local crosshair

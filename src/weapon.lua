@@ -45,6 +45,7 @@ function weapon.new(name_, rounds_, rate_)
             self.vy = 0.1 * 50
         else
             self.vy = 0
+            self.y = 195
         end
 
         self.x = self.x + dt * self.vx
