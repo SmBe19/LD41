@@ -9,16 +9,23 @@ local menu = {
 function menu.done()
 end
 
+function menu.load()
+    menu.logo = love.graphics.newImage("assets/logo.png")
+end
+
 function menu.update(dt)
 end
 
 function menu.draw(xp)
     love.graphics.pushColor()
+
+    love.graphics.draw(menu.logo, 128, 10)
+
     love.graphics.push()
     love.graphics.scale(0.5, 0.5)
 
     love.graphics.setFont(getFont(42))
-    love.graphics.printCenter("Shot! Shot!", 320, 40)
+    love.graphics.printCenter("Shot!           Shot!", 320, 40)
 
     love.graphics.setFont(getFont(28))
     love.graphics.setColor({0.7, 0.12, 0.16, 1})

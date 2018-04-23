@@ -19,11 +19,20 @@ local highscore = {
 function highscore.done()
 end
 
+function highscore.load()
+    highscore.logo = love.graphics.newImage("assets/logo.png")
+end
+
 function highscore.draw()
     love.graphics.pushColor()
 
+    love.graphics.push()
+    love.graphics.scale(2, 2)
+    love.graphics.draw(menu.logo, 128, 10)
+    love.graphics.pop()
+
     love.graphics.setFont(getFont(42))
-    love.graphics.printCenter("Shot! Shot!", 320, 40)
+    love.graphics.printCenter("Shot!           Shot!", 320, 40)
 
     love.graphics.setFont(getFont(28))
     love.graphics.setColor({1, 1, 1, 1})
@@ -31,7 +40,8 @@ function highscore.draw()
     local top = 240
     local right = 340
 
-    love.graphics.printCenter("Score for " .. highscore.username, 320, 120)
+    love.graphics.printCenter("Score for " .. highscore.username, 192, 190)
+    love.graphics.rectangle("fill", 35, 235, 320, 2)
 
     love.graphics.printRight("drunkenness:", right - 100, top)
     love.graphics.printRight(tostring(highscore.score + highscore.deduction) .. "‰", right, top)
@@ -47,8 +57,8 @@ function highscore.draw()
 
     love.graphics.setColor({1, 1, 1, 1})
     love.graphics.rectangle("fill", 35, top + 80 - 3, 320, 2)
-    love.graphics.printRight("total:", right - 100, top + 80)
-    love.graphics.printRight(tostring(math.max(0, highscore.score)) .. "‰", right, top + 80)
+    love.graphics.printRight("total:", right - 100, top + 85)
+    love.graphics.printRight(tostring(math.max(0, highscore.score)) .. "‰", right, top + 85)
 
     love.graphics.setFont(getFont(16))
     top = 180

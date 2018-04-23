@@ -48,6 +48,8 @@ function love.load()
 
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
+    menu.load()
+    highscore.load()
     audio.load()
     typing.load()
     crosshair.load()
