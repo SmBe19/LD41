@@ -64,7 +64,7 @@ function audio.delay(what, delay)
 end
 
 function audio.playrandom(what)
-    what[math.random(#what)]:play()
+    what[love.math.random(#what)]:play()
 end
 
 return audio

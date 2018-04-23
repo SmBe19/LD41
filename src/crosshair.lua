@@ -33,8 +33,8 @@ function crosshair.updatePosition(dt)
     local beta = math.pow(crosshair.drunk, 0.7) * 1000
     local tt = math.max(0.1, 1 - math.exp(alpha * -dirl))
 
-    crosshair.ax = dirx / (tt*tt) - crosshair.vx / tt + (math.random() - 0.5) * beta
-    crosshair.ay = diry / (tt*tt) - crosshair.vy / tt + (math.random() - 0.5) * beta
+    crosshair.ax = dirx / (tt*tt) - crosshair.vx / tt + (love.math.random() - 0.5) * beta
+    crosshair.ay = diry / (tt*tt) - crosshair.vy / tt + (love.math.random() - 0.5) * beta
 
     crosshair.vx = crosshair.vx + dt * crosshair.ax
     crosshair.vy = crosshair.vy + dt * crosshair.ay

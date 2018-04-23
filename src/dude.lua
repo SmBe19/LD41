@@ -81,7 +81,7 @@ function dude.shoot(x, y)
         local dist = math.dist(xx, y, dude.glasspos[dude.frame][1], dude.glasspos[dude.frame][2])
         if dist < 12 then
             dude.angry = 16
-            dude.angrytext = string.random(math.random(4, 8), string.toList("!?$@#*&%"))
+            dude.angrytext = string.random(love.math.random(4, 8), string.toList("!?$@#*&%"))
             dude.drinkprogress = 0
             dude.hitglass()
             return true

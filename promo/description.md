@@ -28,4 +28,4 @@ All code and assets (excluding music) were made by Matteo Signer and Benjamin Sc
 ## Installation
 The HTML5 build does not support high scores and might have some bugs. Use the downloadable game for the best experience.
 
-To run the game download [Löve](https://love2d.org/) (at least version 11.1 is needed) for your platform and then open the downloaded .love file with Löve. For Windows you can also download a complete bundle which already includes Löve.
+To run the game download [Löve](https://love2d.org/) (version 11.1 is preferred, 0.10.2 should work as well) for your platform and then open the downloaded .love file with Löve. For Windows you can also download a complete bundle which already includes Löve.

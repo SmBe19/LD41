@@ -56,7 +56,7 @@ function math.clamp(x, a, b)
 end
 
 function math.choice(t)
-    return t[math.random(#t)]
+    return t[love.math.random(#t)]
 end
 
 function math.sample(t)
@@ -64,7 +64,7 @@ function math.sample(t)
     for k, v in pairs(t) do
         sum = sum + v
     end
-    local value = math.random() * sum
+    local value = love.math.random() * sum
     for k, v in pairs(t) do
         if value <= v then
             return k

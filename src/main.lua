@@ -2,6 +2,7 @@
 -- Main entry point for game
 --
 
+require("combat")
 require("util")
 require("font")
 audio = require("audio")
