@@ -19,17 +19,17 @@ end
 function menu.draw(xp)
     love.graphics.pushColor()
 
-    love.graphics.draw(menu.logo, 128, 10)
+    love.graphics.draw(menu.logo, 78, 10)
 
     love.graphics.push()
     love.graphics.scale(0.5, 0.5)
 
     love.graphics.setFont(getFont(42))
-    love.graphics.printCenter("Shot!           Shot!", 320, 40)
+    love.graphics.printCenter("Shot!           Shot!", 220, 40)
 
     love.graphics.setFont(getFont(28))
     love.graphics.setColor({0.7, 0.12, 0.16, 1})
-    love.graphics.printCenter("[ENTER] to start game!", 320, 170)
+    love.graphics.printCenter("START!", 320, 200)
 
     love.graphics.setFont(getFont(14))
     love.graphics.setColor({1, 1, 1, 1})
@@ -44,7 +44,7 @@ function menu.draw(xp)
 end
 
 function menu.keypressed(char)
-    if char == "return" then
+    if char == "return" or char == "space" then
         menu.done()
     elseif char == "escape" then
         love.event.quit()

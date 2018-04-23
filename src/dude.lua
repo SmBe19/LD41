@@ -158,6 +158,12 @@ function dude.draw()
         love.graphics.scale(0.5, 0.5)
         love.graphics.setFont(getFont(18))
         love.graphics.setColor({0.51, 0.1, 0.2, 1})
+        for xxx = -1,1,2 do
+            for yyy = -1,1,2 do
+                love.graphics.printCenter(dude.angrytext, 255 + dude.offx*2+xxx, 50 + dude.offy*2+yyy)
+            end
+        end
+        love.graphics.setColor({0.98, 0.42, 0.03, 1})
         love.graphics.printCenter(dude.angrytext, 255 + dude.offx*2, 50 + dude.offy*2)
         love.graphics.pop()
         love.graphics.popColor()

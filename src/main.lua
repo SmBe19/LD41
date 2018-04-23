@@ -104,6 +104,7 @@ end
 
 function draw_1()
     love.graphics.scale(consts.sx, consts.sy)
+    love.graphics.draw(imgs.bg, 0, 0)
     love.graphics.draw(imgs.bar, 0, 0)
     menu.draw(vars.xp)
 end
