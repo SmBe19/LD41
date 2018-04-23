@@ -71,7 +71,7 @@ function highscore.draw()
         else
             love.graphics.setColor({1, 1, 1, 1})
         end
-        love.graphics.printRight(string.format("%s %4d‰", name, entry[2]), right, top + i * 20)
+        love.graphics.printRight(string.format("%s %4d‰", name, math.max(0, tonumber(entry[2]))), right, top + i * 20)
     end
 
     love.graphics.setFont(getFont(14))

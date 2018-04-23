@@ -44,6 +44,7 @@ function love.load()
     love.mouse.setVisible(false)
     love.window.setIcon(love.image.newImageData("assets/logo.png"))
 
+    imgs.bg = love.graphics.newImage("assets/bg.png")
     imgs.bar = love.graphics.newImage("assets/bar.png")
 
     menu.load()
@@ -109,6 +110,7 @@ end
 
 function draw_2()
     love.graphics.scale(consts.sx, consts.sy)
+    love.graphics.draw(imgs.bg, 0, 0)
     dude.draw()
     love.graphics.draw(imgs.bar, 0, 0)
     vars.beverage:draw()
@@ -129,6 +131,7 @@ end
 function draw_3()
     love.graphics.scale(consts.sx, consts.sy)
     dude.draw()
+    love.graphics.draw(imgs.bg, 0, 0)
     love.graphics.draw(imgs.bar, 0, 0)
     vars.weapon:drawReload()
     crosshair.draw(vars.state)
@@ -205,7 +208,9 @@ function crosshair.shoot()
             local success = dude.shoot(crosshair.x, crosshair.y)
             audio.playrandom(audio.srcgunshot)
             if not success then
-                -- audio.delay(audio.srcwoosh, 0.1)
+                if 212 < crosshair.x and crosshair.x < 320 and 16 < crosshair.y and crosshair.y < 90 then
+                    audio.delay(audio.srcwoosh, 0.15)
+                end
             end
         end
     elseif vars.state == 3 then

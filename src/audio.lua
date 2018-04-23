@@ -24,7 +24,7 @@ function audio.load()
         audio.srcslurp[i] = love.audio.newSource(string.format("assets/slurp%d.wav", i), "static")
     end
     audio.srcwoosh = {}
-    for i = 1,2 do
+    for i = 1,9 do
         audio.srcwoosh[i] = love.audio.newSource(string.format("assets/woosh%d.wav", i), "static")
     end
     audio.srcreload = {}
