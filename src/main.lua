@@ -237,6 +237,7 @@ function dude.toodrunk()
 end
 
 function dude.dead()
+    audio.delay(audio.srcouch, 0.5)
     highscore.score = math.floor(vars.promille * 1000)
     highscore.deduction = math.max(1, math.floor(highscore.score * 0.4))
     highscore.score = highscore.score - highscore.deduction

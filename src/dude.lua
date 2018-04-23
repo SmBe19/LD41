@@ -74,7 +74,7 @@ function dude.update(dt)
         else
             dude.frame = -1
         end
-        if dude.dieprogress > 9 then
+        if dude.dieprogress > 7 then
             dude.finishedDying()
         end
     elseif dude.reversing > 0 then

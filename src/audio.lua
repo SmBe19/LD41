@@ -31,6 +31,10 @@ function audio.load()
     for i = 1,2 do
         audio.srcreload[i] = love.audio.newSource(string.format("assets/reload%d.wav", i), "static")
     end
+    audio.srcouch = {}
+    for i = 1,5 do
+        audio.srcouch[i] = love.audio.newSource(string.format("assets/ouch%d.wav", i), "static")
+    end
     audio.srcbackground = {}
     for i = 1,3 do
         audio.srcbackground[i] = love.audio.newSource(string.format("assets/music/background%d.mp3", i), "stream")
