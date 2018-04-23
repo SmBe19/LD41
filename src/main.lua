@@ -32,13 +32,10 @@ function startGame()
     vars.beverage.progress = 0
     vars.beverage.lastshot = 0
     love.mouse.setPosition(320, 240)
-    dude.drinks = 0
-    dude.drinkprogress = 0
-    dude.reversing = 0
-    dude.angry = 0
-    dude.promille = 0
+    dude.reset()
 
     love.mouse.setGrabbed(true)
+    audio.delay(audio.srcpouring, 0.5)
 end
 
 function love.load()
@@ -208,7 +205,7 @@ function crosshair.shoot()
             local success = dude.shoot(crosshair.x, crosshair.y)
             audio.playrandom(audio.srcgunshot)
             if not success then
-                audio.delay(audio.srcwoosh, 0.1)
+                -- audio.delay(audio.srcwoosh, 0.1)
             end
         end
     elseif vars.state == 3 then
@@ -224,28 +221,30 @@ end
 
 function dude.hitglass()
     audio.delay(audio.srcklirr, 0.1)
-    audio.delay(audio.srcpouring, 10)
+    audio.delay(audio.srcpouring, 12.8)
 end
 
 function dude.drink()
     audio.playrandom(audio.srcslurp)
-    audio.delay(audio.srcpouring, 1.5)
+    audio.delay(audio.srcpouring, 1.7 + dude.drinks * 0.08)
     dude.promille = vars.beverage:newPromille(dude.promille)
 end
 
 function dude.toodrunk()
-    vars.state = 4
     highscore.score = math.floor(vars.promille * 1000)
     highscore.deduction = 0
-    highscore.retrieve()
-    love.mouse.setGrabbed(false)
+    dude.dying = true
 end
 
 function dude.dead()
-    vars.state = 4
     highscore.score = math.floor(vars.promille * 1000)
     highscore.deduction = math.max(1, math.floor(highscore.score * 0.4))
     highscore.score = highscore.score - highscore.deduction
+    dude.dying = true
+end
+
+function dude.finishedDying()
+    vars.state = 4
     highscore.retrieve()
     love.mouse.setGrabbed(false)
 end

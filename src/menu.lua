@@ -46,6 +46,8 @@ end
 function menu.keypressed(char)
     if char == "return" then
         menu.done()
+    elseif char == "escape" then
+        love.event.quit()
     end
 end
 
