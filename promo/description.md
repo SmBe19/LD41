@@ -6,9 +6,9 @@ We write the year 1848 in a small town called Deadwood in South Dakota. As the l
 
 ## How to play
 
-In the main menu, press *enter* to start the game. At the bottom you will see some string. You have to type this string in order to take a shot. With the mouse you can aim. The more drunk you get, the harder it is to aim. You can shoot the other guy's shot glass to gain some time. But you shall not hit him, otherwise the game is over and you get a hefty penalty. If you want to reload, press *space* and fill in the rounds into the empty holes. Press *space* again to get back.
+In the main menu, press *space* to start the game. At the bottom you will see some string. You have to type this string in order to take a shot. With the mouse you can aim. The more drunk you get, the harder it is to aim. You can shoot the other guy's shot glass to gain some time. But you shall not hit him, otherwise the game is over and you get a hefty penalty. If you want to reload, press *space* and fill in the rounds into the empty holes. Press *space* again to get back. Should you wish to mute the music you can do so with *tab*.
 
-The game ends as soon as the other guy passes out or he gets shot. Your score is determined by the amount of alcohol you have in your blood when the game ends.
+The game ends as soon as the other guy passes out or he gets shot. Your score is determined by the amount of alcohol you have in your blood when the game ends. You can enter your name by just typing and using *backspace* to delete stuff. With *enter* you can submit your score. 
 
 ## Special rules
 

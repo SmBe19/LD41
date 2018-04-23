@@ -3,7 +3,8 @@
 --
 
 local audio = {
-    delayed = {}
+    delayed = {},
+    nomusic = false,
 }
 
 function audio.load()
@@ -24,7 +25,7 @@ function audio.load()
         audio.srcslurp[i] = love.audio.newSource(string.format("assets/slurp%d.wav", i), "static")
     end
     audio.srcwoosh = {}
-    for i = 1,9 do
+    for i = 1,7 do
         audio.srcwoosh[i] = love.audio.newSource(string.format("assets/woosh%d.wav", i), "static")
     end
     audio.srcreload = {}
@@ -47,7 +48,9 @@ function startBackground()
         audio.background:stop()
     end
     audio.background = math.choice(audio.srcbackground)
-    audio.background:play() -- TODO enable
+    if not audio.nomusic then
+        audio.background:play() -- TODO enable
+    end
 end
 
 function audio.update(dt)
@@ -58,7 +61,7 @@ function audio.update(dt)
             table.remove(audio.delayed, i)
         end
     end
-    if not audio.background:isPlaying() then
+    if not audio.background:isPlaying() and not audio.nomusic then
         startBackground()
     end
 end
@@ -69,6 +72,15 @@ end
 
 function audio.playrandom(what)
     what[love.math.random(#what)]:play()
+end
+
+function audio.toggleMusic()
+    audio.nomusic = not audio.nomusic
+    if audio.nomusic then
+        audio.background:pause()
+    else
+        audio.background:play()
+    end
 end
 
 return audio

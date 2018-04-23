@@ -178,6 +178,9 @@ end
 function love.keypressed(key)
     local keypressed = { keypressed_1, keypressed_2, keypressed_3, keypressed_4 }
     keypressed[vars.state](key)
+    if key == "tab" then
+        audio.toggleMusic()
+    end
 end
 
 function love.textinput(t)

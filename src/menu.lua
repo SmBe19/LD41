@@ -29,7 +29,7 @@ function menu.draw(xp)
 
     love.graphics.setFont(getFont(28))
     love.graphics.setColor({0.7, 0.12, 0.16, 1})
-    love.graphics.printCenter("START!", 320, 200)
+    love.graphics.printCenter("[space] to START!", 320, 200)
 
     love.graphics.setFont(getFont(14))
     love.graphics.setColor({1, 1, 1, 1})
@@ -38,6 +38,7 @@ function menu.draw(xp)
 
     love.graphics.setFont(getFont(10))
     love.graphics.printCenter("Music by Kevin MacLeod (incompetech.com)", 320, 450)
+    love.graphics.printCenter("[tab] to mute music", 320, 464)
 
     love.graphics.pop()
     love.graphics.popColor()
